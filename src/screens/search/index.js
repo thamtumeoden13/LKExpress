@@ -3,7 +3,8 @@ import {
     StyleSheet,
     Text,
     View,
-    Alert
+    Alert,
+    Animated
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import codePush from 'react-native-code-push'
@@ -11,7 +12,8 @@ import codePush from 'react-native-code-push'
 import DrawerIcon from 'components/common/icon/DrawerIcon'
 import BagIcon from 'components/common/icon/BagIcon'
 import HeaderTitle from 'components/common/Header/HeaderTitle'
-import { scale, moderateScale } from 'utils/scaleSize';
+import ProgressBar from 'components/common/progressBar';
+import { ModalCenterAlert } from 'components/common/modal/ModalCenterAlert';
 
 export default class Search extends Component {
     static navigationOptions = () => {
@@ -21,14 +23,27 @@ export default class Search extends Component {
             headerTitle: () => <HeaderTitle title={`Tìm kiếm`} />,
         };
     };
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            isModalAlert: false,
+            receivedBytes: 0,
+            totalBytes: 0,
+            titleProgress: ''
+        }
+    }
+
     componentDidMount() {
 
     }
 
     componentWillUnmount() {
+        this.setState({ isModalAlert: false })
     }
 
     onButtonPress = () => {
+        this.setState({ isModalAlert: !this.state.isModalAlert })
         codePush.sync({
             updateDialog: {
                 appendReleaseDescription: true,
@@ -40,64 +55,79 @@ export default class Search extends Component {
             (status) => {
                 switch (status) {
                     case codePush.SyncStatus.CHECKING_FOR_UPDATE:
-                        console.log("Checking for updates.");
+                        this.setState({ titleProgress: 'Checking for updates.' })
                         break;
                     case codePush.SyncStatus.DOWNLOADING_PACKAGE:
-                        console.log("Downloading package.");
+                        this.setState({ titleProgress: 'Downloading package.' })
                         break;
                     case codePush.SyncStatus.INSTALLING_UPDATE:
-                        console.log("Installing update.");
+                        this.setState({ titleProgress: 'Installing update.' })
                         break;
                     case codePush.SyncStatus.UP_TO_DATE:
-                        console.log("Up-to-date.");
+                        this.setState({ titleProgress: 'Up-to-date.' })
                         break;
                     case codePush.SyncStatus.UPDATE_INSTALLED:
-                        console.log("Update installed.");
+                        this.setState({ titleProgress: 'Update installed.' })
+                        setTimeout(() => {
+                            this.onCloseModalAlert()
+                        }, 1000);
                         break;
                 }
             },
             ({ receivedBytes, totalBytes, }) => {
                 /* Update download modal progress */
+                this.setState({ receivedBytes, totalBytes })
+                console.log(receivedBytes, totalBytes)
             }
         );
     }
 
+    renderChildren = (titleProgress, receivedBytes, totalBytes) => {
+        return (
+            <View style={{ height: 100, paddingHorizontal: 10 }}>
+                <ProgressBar
+                    title={titleProgress}
+                    receivedBytes={receivedBytes}
+                    totalBytes={totalBytes}
+                />
+            </View>
+        )
+    }
+    onCloseModalAlert = () => {
+        this.setState({
+            isModalAlert: false,
+        })
+    }
+
     render() {
+        const { receivedBytes, totalBytes, titleProgress } = this.state
+        console.log(receivedBytes, totalBytes, titleProgress)
         return (
             <View style={styles.container}>
-                <View style={styles.viewSectionNoList}>
-                    <View style={styles.icon}>
-                        <Icon
-                            name='gift'
-                            type='font-awesome'
-                            color='#d82cfd99'
-                            size={120}
-                            onPress={this.onButtonPress}
-                        />
-                    </View>
-                    <View style={styles.description}>
-                        <Text style={{ color: '#948f8f', fontSize: scale(20) }}>Bạn chưa có mã quà tặng</Text>
-                    </View>
-                </View>
+                <ModalCenterAlert
+                    isVisible={this.state.isModalAlert}
+                    typeModal={'error'}
+                    childComponent={this.renderChildren(titleProgress, receivedBytes, totalBytes)}
+                    onCloseModalAlert={this.onCloseModalAlert}
+                />
+                <Icon
+                    name='gift'
+                    type='font-awesome'
+                    color='#d82cfd99'
+                    size={120}
+                    onPress={this.onButtonPress}
+                />
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
     container: {
-        flexGrow: 1,
-        width: "100%",
-        backgroundColor: '#eff1f4',
-    },
-    viewSectionNoList: {
-        height: '100%',
-        width: '100%',
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    title: {
-        fontSize: scale(20),
-        textAlign: 'center',
-        margin: moderateScale(10),
+        paddingTop: 20,
+        backgroundColor: '#ecf0f1',
+        padding: 8,
     },
 });
