@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    ImageBackground,
-    Dimensions,
-    Platform, ScrollView
+    ScrollView,
+    Alert
 } from 'react-native';
 import { Text, Button, Icon } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -30,15 +29,19 @@ const numColumns = 4;
 class Saved extends Component {
     static navigationOptions = () => {
         return {
-            headerLeft: <DrawerIcon />,
-            headerRight: <BagIcon />,
-            headerTitle: <HeaderTitle title={`Đánh dấu`} />,
+            headerLeft: () => <DrawerIcon />,
+            headerRight: () => <BagIcon />,
+            headerTitle: () => <HeaderTitle title={`Đánh dấu`} />,
         };
     }
     componentDidMount() {
     }
 
     componentWillUnmount() {
+    }
+
+    onPressItem = (item, index) => {
+        Alert.alert('CarouselStackLayout,CarouselTinderLayout', `You've clicked ${item.title}`);
     }
 
     render() {
@@ -49,11 +52,13 @@ class Saved extends Component {
                         data={ENTRIES1}
                         title={`Stack Layout `}
                         subtitle={`Stack of cards layout | Loop`}
+                        onPressItem={this.onPressItem}
                     />
                     <CarouselTinderLayout
                         data={ENTRIES2}
                         title={`Tinder Layout `}
                         subtitle={`Tinder of cards layout | Loop`}
+                        onPressItem={this.onPressItem}
                     />
                 </ScrollView>
             </View>

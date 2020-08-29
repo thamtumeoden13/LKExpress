@@ -19,8 +19,14 @@ const CustomLayout = (props) => {
         data: []
     })
     const _renderItem = (item, index, refNumber) => {
-        // console.log(item, index, refNumber)
-        return <SliderEntry data={item} even={refNumber % 2 === 0} />;
+
+        const onPressItem = () => {
+            if (props.onPressItem) {
+                props.onPressItem(item, index)
+            }
+        }
+
+        return <SliderEntry data={item} even={refNumber % 2 === 0} onPress={onPressItem} />;
     }
 
     const gradient = () => {
@@ -66,7 +72,6 @@ const CustomLayout = (props) => {
 
     const isEven = refNumber % 2 === 0;
 
-    // console.log(refNumber, isEven)
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>

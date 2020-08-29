@@ -3,7 +3,8 @@ import {
     StyleSheet,
     Text,
     View,
-    ScrollView
+    ScrollView,
+    Alert
 } from 'react-native';
 import {
     CarouselMainLayout,
@@ -21,9 +22,9 @@ export default class Category extends Component {
 
     static navigationOptions = () => {
         return {
-            headerLeft: <DrawerIcon />,
-            headerRight: <BagIcon />,
-            headerTitle: <HeaderTitle title={`Danh mục`} />,
+            headerLeft: () => <DrawerIcon />,
+            headerRight: () => <BagIcon />,
+            headerTitle: () => <HeaderTitle title={`Danh mục`} />,
         };
     };
     componentDidMount() {
@@ -46,6 +47,10 @@ export default class Category extends Component {
         // clearInterval(this.interval);
     }
 
+    onPressItem = (item, index) => {
+        Alert.alert('CarouselCustomLayout', `You've clicked ${item.title}`);
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -54,11 +59,13 @@ export default class Category extends Component {
                         data={ENTRIES1}
                         title={`Custom Layout `}
                         subtitle={`Animation of cards layout | Loop`}
+                        onPressItem={this.onPressItem}
                     />
                     <CarouselCustomLayout
                         data={ENTRIES2}
                         title={`Custom Layout `}
                         subtitle={`Animation of cards layout | Loop`}
+                        onPressItem={this.onPressItem}
                     />
                 </ScrollView>
             </View>

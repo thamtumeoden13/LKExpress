@@ -11,7 +11,8 @@ const Drawer = createDrawerNavigator(
         Tabs: {
             screen: Tabs,
             navigationOptions: ({ navigation }) => ({
-                gesturesEnabled: false,
+                // gesturesEnabled: false,
+                gestureEnabled: false
             })
         },
     },
@@ -46,8 +47,8 @@ const Drawer = createDrawerNavigator(
 
 Drawer.navigationOptions = {
     // Hide the header from AppNavigator stack
-    header: null,
-
+    // header: null,
+    headerShown: false
 };
 
 // const CustomDrawerContentComponent = props => (

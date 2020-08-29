@@ -53,8 +53,10 @@ const ConfigObject = {
 
 class LockCom extends Component {
     static navigationOptions = ({ navigation, screenProps }) => ({
-        header: null,
-        gesturesEnabled: false
+        // header: null,
+        // gesturesEnabled: false,
+        headerShown: false,
+        gestureEnabled: false
     })
     constructor(props) {
         super(props);

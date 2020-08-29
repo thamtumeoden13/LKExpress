@@ -75,8 +75,8 @@ const Tabs = createBottomTabNavigator(
 );
 Tabs.navigationOptions = {
     // Hide the header from AppNavigator stack
-    header: null,
-
+    // header: null,
+    headerShown: false
 };
 
 export default Tabs

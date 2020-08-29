@@ -35,12 +35,20 @@ const MainLayout = (props) => {
     })
 
     const _renderItemWithParallax = ({ item, index }, parallaxProps) => {
+
+        const onPressItem = () => {
+            if (props.onPressItem) {
+                props.onPressItem(item, index)
+            }
+        }
+
         return (
             <SliderEntry
                 data={item}
                 even={(index + 1) % 2 === 0}
                 parallax={true}
                 parallaxProps={parallaxProps}
+                onPress={onPressItem}
             />
         );
     }

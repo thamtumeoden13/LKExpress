@@ -8,7 +8,8 @@ export const AppStack = createStackNavigator(
         Drawer: {
             screen: Drawer,
             navigationOptions: ({ navigation }) => ({
-                gesturesEnabled: false,
+                // gesturesEnabled: false,
+                gestureEnabled:false
             })
         }
     }

@@ -41,7 +41,7 @@ const SliderEntry = (props) => {
         <TouchableOpacity
             activeOpacity={1}
             style={styles.slideInnerContainer}
-            onPress={() => { alert(`You've clicked '${title}'`); }}
+            onPress={props.onPress}
         >
             <View style={styles.shadow} />
             <View style={[styles.imageContainer, even ? styles.imageContainerEven : {}]}>

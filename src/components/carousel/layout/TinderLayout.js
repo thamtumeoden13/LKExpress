@@ -19,7 +19,13 @@ const TinderLayout = (props) => {
     })
 
     const _renderLightItem = ({ item, index }) => {
-        return <SliderEntry data={item} even={false} />;
+
+        const onPressItem = () => {
+            if (props.onPressItem) {
+                props.onPressItem(item, index)
+            }
+        }
+        return <SliderEntry data={item} even={false} onPress={onPressItem} />;
     }
 
     const gradient = () => {

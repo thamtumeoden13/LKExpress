@@ -1,6 +1,7 @@
 import { createStackNavigator } from 'react-navigation-stack';
 // Trang chu
 import Home from 'screens/home';
+import HomeDetail from 'screens/home/Detail';
 
 // Danh muc
 import Category from 'screens/category';
@@ -17,6 +18,7 @@ import Lock from 'screens/signIn/Lock';
 export const HomeStack = createStackNavigator(
     {
         Home: Home,
+        HomeDetail: HomeDetail,
         Lock: Lock
     },
 );

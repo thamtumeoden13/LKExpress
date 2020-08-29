@@ -20,7 +20,14 @@ const StackLayout = (props) => {
     })
 
     const _renderItem = ({ item, index }) => {
-        return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
+
+        const onPressItem = () => {
+            if (props.onPressItem) {
+                props.onPressItem(item, index)
+            }
+        }
+
+        return <SliderEntry data={item} even={(index + 1) % 2 === 0} onPress={onPressItem} />;
     }
 
     const gradient = () => {

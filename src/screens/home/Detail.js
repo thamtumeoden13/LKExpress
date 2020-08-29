@@ -57,10 +57,6 @@ class Home extends Component {
     componentWillUnmount() {
     }
 
-    onPressItem = (item, index) => {
-        Alert.alert('CarouselMainLayout', `You've clicked ${item.title}`);
-    }
-
     render() {
         return (
             <SafeAreaView style={styles.safeArea}>
@@ -90,7 +86,6 @@ class Home extends Component {
                                 data={ENTRIES1}
                                 title={`Main Layout`}
                                 subtitle={`Default layout | Loop | Autoplay | Parallax | Scale | Opacity | Pagination with tappable dots`}
-                                onPressItem={this.onPressItem}
                             />
                         </View>
                     </ScrollView>

@@ -18,29 +18,29 @@ class App extends Component {
 
     // Make use of the event hooks to keep track of
     // the different stages of the sync process.
-    // codePushStatusDidChange(status) {
-    //     switch (status) {
-    //         case codePush.SyncStatus.CHECKING_FOR_UPDATE:
-    //             console.log("Checking for updates.");
-    //             break;
-    //         case codePush.SyncStatus.DOWNLOADING_PACKAGE:
-    //             console.log("Downloading package.");
-    //             break;
-    //         case codePush.SyncStatus.INSTALLING_UPDATE:
-    //             console.log("Installing update.");
-    //             break;
-    //         case codePush.SyncStatus.UP_TO_DATE:
-    //             console.log("Up-to-date.");
-    //             break;
-    //         case codePush.SyncStatus.UPDATE_INSTALLED:
-    //             console.log("Update installed.");
-    //             break;
-    //     }
-    // }
+    codePushStatusDidChange(status) {
+        switch (status) {
+            case codePush.SyncStatus.CHECKING_FOR_UPDATE:
+                console.log("Checking for updates.");
+                break;
+            case codePush.SyncStatus.DOWNLOADING_PACKAGE:
+                console.log("Downloading package.");
+                break;
+            case codePush.SyncStatus.INSTALLING_UPDATE:
+                console.log("Installing update.");
+                break;
+            case codePush.SyncStatus.UP_TO_DATE:
+                console.log("Up-to-date.");
+                break;
+            case codePush.SyncStatus.UPDATE_INSTALLED:
+                console.log("Update installed.");
+                break;
+        }
+    }
 
-    // codePushDownloadDidProgress(progress) {
-    //     console.log(progress.receivedBytes + " of " + progress.totalBytes + " received.");
-    // }
+    codePushDownloadDidProgress(progress) {
+        console.log(progress.receivedBytes + " of " + progress.totalBytes + " received.");
+    }
 
     componentDidMount() {
         // codePush.sync({
